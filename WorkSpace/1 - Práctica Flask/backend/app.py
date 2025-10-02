@@ -1,34 +1,25 @@
-from flask import Flask, render_template, abort
-
+from flask import Flask, render_template, abort, request, redirect, flash, url_for
+from models import save_contact, get_movies
 
 app = Flask(__name__, template_folder='..\\frontend\\templates', static_folder='..\\frontend\\static')
+app.config['SECRET_KEY'] = 'random-key'
 
-movie_list = [
-   {
-        'id' : 1,
-        'title' : "The Shawshank Redemption",
-        'director' : "Frank Darabont",
-        'year' : 1994,
-        'gender' : "Drama",
-        'description' : "The Shawshank Redemption is a 1994 American prison drama film based on a Stephen King novella, starring Tim Robbins as banker Andy Dufresne and Morgan Freeman as his friend Red. Andy is wrongly convicted of murdering his wife and serves a life sentence at Shawshank Prison, where he endures brutality while using his financial skills to assist the corrupt warden. Over two decades, he and Red form a deep friendship, and Andy eventually orchestrates a daring escape and exposes the prison's corruption ",
-        'rating' : 9.2,
-        'poster_url' : "https://image.tmdb.org/t/p/original/j8IMbiv2LN0pSptfVgoVUkhWbPE.jpg"
-    },
-    {
-        'id' : 2,
-        'title' : "Django Unchined",
-        'director' : "Quentin Tarantino",
-        'year' : 2012,
-        'gender' : "Action ",
-        'description' : "Django is a free and open-source Python project with an active community that reviews and maintains the software. A not-for-profit organization called the Django Software Foundation promotes and supports the use and maintenance of Django",
-        'rating' : 9.6,
-        'poster_url' : "https://wiki.tarantino.info/images/Djangounchainedposter3.jpg"
-    },
-    
-]
+movie_list = get_movies()
 
-@app.route('/contact')
+@app.route('/contact', methods=['GET', 'POST'])
 def contact():
+  if request.method == 'POST':
+      name = request.form.get('name')
+      email = request.form.get('email')
+      subject = request.form.get('subject')
+      message = request.form.get('message')
+
+      if not name:
+          flash("Por favor, rellena bien el nombre") # Te muestra un cartelito arriba de la pantalla con el texto
+          return redirect(url_for('contact'))
+
+      save_contact(name, email, subject, message)
+
   return render_template("contact.html")
 
 
