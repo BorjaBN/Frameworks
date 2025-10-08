@@ -1,10 +1,14 @@
 from flask import Flask, render_template, abort, request, redirect, flash, url_for
-from models import save_contact, get_movies
+from models import save_contact, get_movies, get_movie_by_id, init_db, add_movies
 
 app = Flask(__name__, template_folder='..\\frontend\\templates', static_folder='..\\frontend\\static')
 app.config['SECRET_KEY'] = 'random-key'
 
-movie_list = get_movies()
+
+@app.route('/new_movies')
+def new_movies():
+    return render_template('new_movies.html')
+
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
@@ -19,12 +23,13 @@ def contact():
           return redirect(url_for('contact'))
 
       save_contact(name, email, subject, message)
+      flash('Gracias por tu mensaje - Te responderemos pronto', 'succes')
+      return redirect(url_for('contact'))
 
   return render_template("contact.html")
 
 
-def get_movie_by_id(movie_id: int):
-    return next((m for m in movie_list if m["id"] == movie_id), None)
+
 
 @app.route("/movie/<int:movie_id>")
 def movie_detail(movie_id):
@@ -36,6 +41,7 @@ def movie_detail(movie_id):
 
 @app.route('/movies', endpoint='movies')
 def movies():
+    movie_list = get_movies()
     return render_template("movies.html",movies=movie_list)
 
 
@@ -54,6 +60,13 @@ def index():
 
 # Esto es como poner psvm en java
 if __name__ == '__main__':
+    init_db()
+
+    movies = get_movies()
+    if not movies or len(movies) == 0:
+        add_movies()
+
+
     app.run(debug=True)  #Para eliminar warnings
 
 

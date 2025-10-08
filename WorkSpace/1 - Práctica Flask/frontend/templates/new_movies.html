@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Añadir película{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h1>Nueva Película</h1>
+        <div class="card">
+            <div class="card-body">
+                <form method="POST">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="title" class="form-label">Nombre *</label>
+                            <input type="text" class="form-control" id="title1" name="name" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="director" class="form-label">Director *</label>
+                            <input type="text" class="form-control" id="director1" name="director" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="year" class="form-label">Año *</label>
+                            <input type="text" class="form-control" id="year1" name="email" required>
+                            <div class="col-md-6 mb-3">
+                            <label for="genre" class="form-label">Genero *</label>
+                            <input type="text" class="form-control" id="genre1" name="email" required>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Descripción *</label>
+                        <textarea class="form-control" id="description1" name="message" rows="5" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="rating" class="form-label">Valoración *</label>
+                        <input type="text" class="form-control" id="rating1" name="subject">
+                        <label for="poster_url" class="form-label">URL del Poster *</label>
+                        <input type="text" class="form-control" id="poster_url1" name="subject">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Añadir la Película</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
