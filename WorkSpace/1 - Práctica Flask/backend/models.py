@@ -2,7 +2,7 @@ import sqlite3
 
 
 def init_db():
-    connection = sqlite3.connect('backend/peliculas.db')
+    connection = sqlite3.connect('peliculas.db')
     cursor = connection.cursor()
 
     # TABLA DE CONTACTOS / USUARIOS
@@ -41,7 +41,7 @@ def init_db():
 
 
 def add_movies():
-    connection = sqlite3.connect('backend/peliculas.db')
+    connection = sqlite3.connect('peliculas.db')
     cursor = connection.cursor()
 
     movies = [
@@ -79,7 +79,7 @@ def add_movies():
 
 
 def save_contact(name, email, subject, message):
-    connection = sqlite3.connect('backend/peliculas.db')
+    connection = sqlite3.connect('peliculas.db')
     cursor = connection.cursor()
 
     if not subject():
@@ -97,7 +97,7 @@ def save_contact(name, email, subject, message):
 
 
 def get_movies():
-    connection = sqlite3.connect('backend/peliculas.db')
+    connection = sqlite3.connect('peliculas.db')
     connection.row_factory = sqlite3.Row
     cursor = connection.cursor()
 
@@ -111,23 +111,27 @@ def get_movies():
 
 
 def get_movie_by_id(movie_id: int):
-    connection = sqlite3.connect('backend/peliculas.db')
+    connection = sqlite3.connect('peliculas.db')
     connection.row_factory = sqlite3.Row
     cursor = connection.cursor()
 
-    cursor.execute('SELECT * FROM movies WHERE id = ?', (movie_id))
+    cursor.execute('SELECT * FROM movies WHERE id = ?', (movie_id,))
     movie = cursor.fetchone()
 
     connection.commit()
     connection.close()
     return movie
 
-def cualquier_funcion():
-    connection = sqlite3.connect('backend/peliculas.db')
+def save_movies(title, director, year, genre, description, rating, poster_url):
+    connection = sqlite3.connect('peliculas.db')
     cursor = connection.cursor()
 
-
-      #codigo 
+    cursor.execute(
+        '''
+            INSERT INTO movies (title, director, year, genre, description, rating, poster_url)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+        ''', (title, director, year, genre, description, rating, poster_url)
+    )
     
     connection.commit()
     connection.close()
