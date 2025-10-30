@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+
 import './HomePage.css'
 
 function HomePage() {
@@ -6,6 +7,7 @@ function HomePage() {
 
     return(
         <>
+            
             <div class="hero-section bg-primary text-white rounded p-5 mb-4">
                 <div class="row align-items-center">
                     <div class="col-md-8">

@@ -7,24 +7,30 @@ import AboutPage from './pages/AboutPage'
 import ContactPage from './pages/ContactPage'
 import MovieDetailPage from './pages/MovieDetailPage'
 import NotFoundPage from './pages/NotFoundPage'
+import Layout from './components/Layout'
+
 
 function App() {
  
   return (
     <>
     <Router>
-      <Routes>
-        <Route path= "/" element={<HomePage />}/>
-        <Route path= "/movies" element={<MoviesPage />}/>
-        <Route path= "/about" element={<AboutPage />}/>
-        <Route path= "/contact" element={<ContactPage />}/>
+      <Layout>
+      
+        <Routes>
+          <Route path= "/" element={<HomePage />}/>
+          <Route path= "/movies" element={<MoviesPage />}/>
+          <Route path= "/about" element={<AboutPage />}/>
+          <Route path= "/contact" element={<ContactPage />}/>
 
-        <Route path= "/movies/:id" element={<MovieDetailPage />}/>
+          <Route path= "/movies/:id" element={<MovieDetailPage />}/>
 
-        <Route path= "*" element={<NotFoundPage />}/>
+          <Route path= "*" element={<NotFoundPage />}/>
 
 
-      </Routes>
+        </Routes>
+
+      </Layout>
     </Router>
     </>
   )
